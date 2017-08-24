@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="existdb-login">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `existdb-login`
+     * a Polymer login component for eXistdb
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ExistdbLogin extends Polymer.Element {
+      static get is() { return 'existdb-login'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'existdb-login'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(ExistdbLogin.is, ExistdbLogin);
+  </script>
+</dom-module>
