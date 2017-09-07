@@ -10,4 +10,6 @@
     <target>existdb-login</target>
     <prepare></prepare>
     <finish/>
+    <login required="true" url="login.html"/>
+
 </meta>

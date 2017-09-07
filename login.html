@@ -1,13 +1,25 @@
-<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0;url=demo/" />
+    <meta charset="utf-8"/>
     <title>existdb-login</title>
+
+    <!--<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>-->
+    <!--<link rel="import" href="existdb-login.html"/>-->
+
   </head>
   <body>
-    <h1>eXistdb login Demo</h1>
 
-    <p>This page should not be shown unless authenticated as admin.</p>
+    <!--<existdb-login target="index.html"></existdb-login>-->
+
+      <form class="form" id="form" action="index.html" method="post">
+        <input type="hidden" name="origin" value="{$origin}" autocomplete="on"/>
+        <input label="User ID" id="user" name="user" autofocus="autofocus" required="required"
+               value="{{user}}" error="Please input your username"/>
+        <input label="Password" type="password" id="password" name="password" value="{{pass}}"
+               error="Please input your password"/>
+        <button type="submit" on-click="_handleSubmit">Sign me in</button>
+      </form>
+
+
   </body>
 </html>

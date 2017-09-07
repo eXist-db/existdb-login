@@ -1,36 +1,71 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/iron-form/iron-form.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/paper-styles/typography.html">
 
 <dom-module id="existdb-login">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
-  </template>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
 
-  <script>
-    /**
-     * `existdb-login`
-     * a Polymer login component for eXistdb
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class ExistdbLogin extends Polymer.Element {
-      static get is() { return 'existdb-login'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'existdb-login'
-          }
-        };
-      }
-    }
+            .form {
+                width: 380px;
+                border: 1px solid var(--paper-blue-grey-300);
+                padding:20px;
+            }
 
-    window.customElements.define(ExistdbLogin.is, ExistdbLogin);
-  </script>
+
+            .card-actions {
+                text-align: center;
+            }
+
+        </style>
+            <form class="form" id="form" is="iron-form" action="{{target}}" method="post">
+                <input type="hidden" name="origin" value="" autocomplete="on">
+                <input label="User ID" id="user" name="user" autofocus="autofocus" required="required"
+                             error="Please input your username">
+                <input label="Password" type="password" id="password" name="password"
+                             error="Please input your password">
+                <button type="submit" on-click="_handleSubmit">Sign me in</button>
+            </form>
+    </template>
+
+    <script>
+        /**
+         * `existdb-login`
+         * a Polymer login component for eXistdb
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class ExistdbLogin extends Polymer.Element {
+
+            static get is() {
+                return 'existdb-login';
+            }
+
+            static get properties() {
+                return {
+                    target: {
+                        type: String,
+                        value: '/login'
+                    }
+
+                };
+            }
+
+            _handleSubmit(e) {
+                console.log("serialized: ", this.$.ironform.serializeForm());
+//                this.$.ironform.body = "foo=bar";
+//                this.$.ironform.submit();
+            }
+        }
+
+        window.customElements.define(ExistdbLogin.is, ExistdbLogin);
+    </script>
 </dom-module>
