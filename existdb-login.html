@@ -1,3 +1,4 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/polymer/polymer-element.html">
 <link rel="import" href="bower_components/iron-form/iron-form.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
@@ -12,26 +13,51 @@
                 display: block;
             }
 
-            .form {
-                width: 380px;
-                border: 1px solid var(--paper-blue-grey-300);
-                padding:20px;
+            .wrapper {
+                width: 420px;
+                position: relative;
             }
 
+            .form {
+                border: 1px solid var(--paper-blue-grey-300);
+                padding: 20px;
+                width:100%;
+
+            }
 
             .card-actions {
                 text-align: center;
             }
 
+            .message {
+                color: var(--paper-red-500);
+                color: var(--paper-red-500);
+                height: 30px;
+                font-size: 16px;
+                font-family: roboto;
+                position: absolute;
+                right: 0;
+                top: 158px;
+            }
+
+            paper-button {
+                margin: 0;
+            }
         </style>
-            <form class="form" id="form" is="iron-form" action="{{target}}" method="post">
-                <input type="hidden" name="origin" value="" autocomplete="on">
-                <input label="User ID" id="user" name="user" autofocus="autofocus" required="required"
-                             error="Please input your username">
-                <input label="Password" type="password" id="password" name="password"
-                             error="Please input your password">
-                <button type="submit" on-click="_handleSubmit">Sign me in</button>
+        <div class="wrapper">
+        <iron-form id="iform" allow-redirect="false">
+            <form class="form" id="form" action="{{target}}" method="post">
+                <input type="hidden" name="origin" autocomplete="on"/>
+                <paper-input name="user" id="user" value="{{user}}" autofocus required label="login ID"
+                             error="Please input your user ID"></paper-input>
+                <paper-input name="password" id="password" type="password" value="{{pass}}" autofocus label="password"
+                             error="Please input your password"></paper-input>
+                <paper-button on-click="_handleSubmit" raised>sign in</paper-button>
             </form>
+        </iron-form>
+            <div id="message" class="message"></div>
+        </div>
+
     </template>
 
     <script>
@@ -53,16 +79,38 @@
                 return {
                     target: {
                         type: String,
-                        value: '/login'
+                        value: 'login.html'
+                    },
+                    user: {
+                        type: String,
+                        reflectToAttribute: true,
+                        notify: true,
+                        value: ""
+                    },
+                    pass: {
+                        type: String,
+                        reflectToAtribute: true,
+                        notify: true,
+                        value: ""
+                    },
+                    failed: {
+                        type: String
                     }
-
                 };
             }
 
+            connectedCallback() {
+                super.connectedCallback();
+                if (this.failed) {
+                    this.$.message.innerHTML = "login failed";
+                    //todo: fire event instead
+                }
+
+            }
+
             _handleSubmit(e) {
-                console.log("serialized: ", this.$.ironform.serializeForm());
-//                this.$.ironform.body = "foo=bar";
-//                this.$.ironform.submit();
+                console.log("_handleSubmit: ", e);
+                this.$.iform.submit();
             }
         }
 
