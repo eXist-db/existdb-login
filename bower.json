@@ -15,5 +15,17 @@
   },
   "resolutions": {
     "polymer": "^2.0.0"
-  }
+  },
+  "ignore": [
+    ".idea",
+    "build",
+    "bower_components",
+    "node_modules",
+    "test",
+    "build.xml",
+    "expath-pkg.xml",
+    "repo.xml",
+    "package.json",
+    "gulpfile.js"
+  ]
 }
