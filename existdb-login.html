@@ -1,10 +1,18 @@
-<link rel="import" href="bower_components/polymer/polymer.html">
-<link rel="import" href="bower_components/polymer/polymer-element.html">
-<link rel="import" href="bower_components/iron-form/iron-form.html">
-<link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-<link rel="import" href="bower_components/paper-styles/color.html">
-<link rel="import" href="bower_components/paper-styles/typography.html">
+<!--
+    IMPORTANT NOTE: the pathes below of course do not resolve correctly. To make commponents work within its own
+    context as an xar app AND as a component being consumed by bower (use in foreign app) the component MUST life
+    inside the bower_components directory at runtime.
+
+    There's 'prepare' task in Ant and a corresponding gulp task that copy all file containing '-' in their name
+    to bower_components folder. This way both scenarios can be served.
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-form/iron-form.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
 
 <dom-module id="existdb-login">
     <template>
