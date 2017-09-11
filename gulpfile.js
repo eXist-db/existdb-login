@@ -73,8 +73,8 @@ gulp.task('odd:watch', function () {
 // files in project root //
 
 var componentPaths = [
-    '*.html'
-//  '!components/bower_components/**/*'
+    '*.html',
+    'bower_components/**/*'
 ];
 
 gulp.task('deploy:components', function () {
@@ -105,11 +105,10 @@ var bowerPath = [
 
 gulp.task('deploy:comp', function () {
     return gulp.src(bowerPath, {base: './'})
-        .pipe(exClient.newer('bower_components/existdb-login'))
         .pipe(gulp.dest('bower_components/existdb-login'))
 })
 
-gulp.task('deploy', ['deploy:other', 'deploy:comp', 'deploy:components', 'deploy:styles'])
+gulp.task('deploy', ['deploy:comp', 'deploy:other', 'deploy:components', 'deploy:styles'])
 
 gulp.task('watch', function () {
     gulp.watch('resources/css/!*', ['deploy:styles'])
