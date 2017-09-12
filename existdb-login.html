@@ -119,11 +119,19 @@
                     //todo: fire event instead
                 }
 
+                this.addEventListener('keyup', e => this._handleEnter(e));
+
             }
 
             _handleSubmit(e) {
                 console.log("_handleSubmit: ", e);
                 this.$.iform.submit();
+            }
+
+            _handleEnter(e) {
+                if (e.keyCode == 13) {
+                    this.$.iform.submit();
+                }
             }
         }
 
