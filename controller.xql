@@ -23,33 +23,43 @@ else if ($exist:path = "/") then(
 )
 
 (: auth:isPathAllowed([path],[group]) :)
-else if (ends-with($exist:path, "index.html")) then (
+else if (ends-with($exist:path, "restricted.html")) then (
         login:set-user("org.exist.login", (), true()),
         let $userParam := request:get-parameter("user","")
         let $user := request:get-attribute("org.exist.login.user")
         let $out := request:get-parameter("logout",())
+        let $result := if (not($userParam != data($user))) then "true" else "false"
+(:
         let $log := util:log("info","user: <" || data($user) || ">")
         let $log := util:log("info","userParam: <" || $userParam || ">")
-        let $result := if (not($userParam != data($user))) then "true" else "false"
         let $log := util:log("info", $result)
+:)
 
         return
             if($out = "true") then(
-                console:log("logout: dispatch"),
+                (:
+                When there is a logout request parameter we send the user back to the unrestricted page.
+                :)
                 <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                     <redirect url="index.html"/>
                 </dispatch>
             )
             else if ($user and sm:is-dba($user)) then
+                (:
+                successful login. The user has authenticated and is in the 'dba' group.
+                :)
                 <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                     <cache-control cache="no"/>
                 </dispatch>
-            (:
-                if a user was send as request param
-                and it is NOT the same as the $user
-                a former login attempt has failed.
-            :)
             else if(not(string($userParam) eq string($user))) then
+                (:
+                if a user was send as request param 'user'
+                AND it is NOT the same as the $user
+                a former login attempt has failed.
+
+                Here a duplicate of the login.html is used. This is certainly not the most elegant solution. Just here
+                to not complicate things further with templating etc.
+                :)
                 <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                     <forward url="fail.html"/>
                 </dispatch>

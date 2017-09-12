@@ -9,7 +9,28 @@
   </head>
   <body>
 
-    <existdb-login target="index.html" failed="true" style="width:400px; height: 200px;">&#160;</existdb-login>
+    <h2>existdb-login Web Component</h2>
+
+
+    <p>
+      This page is nearly a copy of the login.html. It just provides an additional attribute to the existdb-login component
+      to show an error.
+    </p>
+
+    <existdb-login target="restricted.html" failed="true" style="width:400px; height: 200px;">&#160;</existdb-login>
+
+    <h2>native form login</h2>
+    <div>
+      <form class="form" id="form" action="restricted.html" method="post">
+        <input type="hidden" name="origin" value="{$origin}" autocomplete="on"/>
+        <input label="User ID" id="user" name="user" autofocus="autofocus" required="required"
+               error="Please input your username"/>
+        <input label="Password" type="password" id="password" name="password"
+               error="Please input your password"/>
+        <button type="submit" on-click="_handleSubmit">Sign me in</button>
+      </form>
+    </div>
+
 
   </body>
 </html>

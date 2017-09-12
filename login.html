@@ -9,10 +9,18 @@
   </head>
   <body>
 
-    <existdb-login target="index.html" style="width:400px; height: 200px;">&#160;</existdb-login>
+    <h2>existdb-login Web Component</h2>
 
-<!--
-      <form class="form" id="form" action="index.html" method="post">
+    <p>
+      Both forms can be used to login. Use the native one if you don't want to deal with Web Components.
+    </p>
+
+    <existdb-login target="restricted.html" style="width:400px; height: 200px;">&#160;</existdb-login>
+
+
+    <h2>native form login</h2>
+    <div>
+      <form class="form" id="form" action="restricted.html" method="post">
         <input type="hidden" name="origin" value="{$origin}" autocomplete="on"/>
         <input label="User ID" id="user" name="user" autofocus="autofocus" required="required"
                error="Please input your username"/>
@@ -20,8 +28,7 @@
                error="Please input your password"/>
         <button type="submit" on-click="_handleSubmit">Sign me in</button>
       </form>
--->
-
+    </div>
 
   </body>
 </html>

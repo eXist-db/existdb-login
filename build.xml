@@ -39,7 +39,7 @@
         <exec executable="polymer">
             <arg value="build"/>
             <arg value="--shell"/>
-            <arg value="index.html"/>
+            <arg value="restricted.html"/>
         </exec>
     </target>
 
