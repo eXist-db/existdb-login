@@ -1,4 +1,9 @@
+Developed on eXistdb 3.4.1 but should be backward compatible.
+
+[Ready-for-use]
+
 # existdb-login
+
 
 This app serves two purposes:
  * showing a reference implementation of an eXistdb login
@@ -31,5 +36,18 @@ bower like this:
 ```
 bower install --save http://gitlab.exist-db.org/eXistdbElements/existdb-login.git
 ```
+
+## How to use
+
+existdb-login is a standalone app that you can deloy as-is to eXistdb. It shows a barebone example of how to setup
+authentication for an app. 
+
+To use it there are several approaches:
+ * copy, paste and adapt the code. Your main interest will be controller.xql and probably login.html. The controller
+   is documented inline and should it should be easy enough to copy the relevant parts.
+ * When you use bower in your project anyay you can install the code via the above statement. This mostly gives
+ you the convenience of having it right in your project for reference as well as the option to use the 
+ provided existdb-login Web Component. But you'll still need to copy/adapt the login.html and merge the controller.xql rules
+ into your application controller.xql. 
 
 

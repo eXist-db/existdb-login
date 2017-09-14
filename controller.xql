@@ -8,7 +8,6 @@ declare variable $exist:resource external;
 declare variable $exist:controller external;
 declare variable $exist:prefix external;
 declare variable $exist:root external;
-(:declare variable $exist:user external;:)
 
 console:log("controller path: " || $exist:path),
 if ($exist:path eq '') then
@@ -21,22 +20,33 @@ else if ($exist:path = "/") then(
         <redirect url="index.html"/>
     </dispatch>
 )
-
-(: auth:isPathAllowed([path],[group]) :)
-else if (ends-with($exist:path, "restricted.html")) then (
-        login:set-user("org.exist.login", (), true()),
-        let $userParam := request:get-parameter("user","")
-        let $user := request:get-attribute("org.exist.login.user")
-        let $out := request:get-parameter("logout",())
-        let $result := if (not($userParam != data($user))) then "true" else "false"
 (:
-        let $log := util:log("info","user: <" || data($user) || ">")
-        let $log := util:log("info","userParam: <" || $userParam || ">")
-        let $log := util:log("info", $result)
+    restricted.html is secured by the following rules
 :)
+else if (ends-with($exist:path, "restricted.html")) then (
+        (: login:set-user creates a authenticated session for a user :)
+        login:set-user("org.exist.login", (), true()),
+
+        (:
+        the login:set-user function internally sets the following request attribute. If this is set we have a logged in
+        user.
+        :)
+        let $user := request:get-attribute("org.exist.login.user")
+
+        (: when the request comes in with a user request param the request was sent by a login form :)
+        let $userParam := request:get-parameter("user","")
+
+        (: in case of a logout we get a request param 'logout' :)
+        let $logout := request:get-parameter("logout",())
+        (:let $result := if (not($userParam != data($user))) then "true" else "false":)
 
         return
-            if($out = "true") then(
+            (:
+            when we get a logout the user is redirected to the index.html page in this example. The redirect target
+            can be changed to application needs. E.g. redirecting to restricted.html here would pop up the login page
+            again as the user is not logged in any more.
+            :)
+            if($logout = "true") then(
                 (:
                 When there is a logout request parameter we send the user back to the unrestricted page.
                 :)
@@ -46,7 +56,9 @@ else if (ends-with($exist:path, "restricted.html")) then (
             )
             else if ($user and sm:is-dba($user)) then
                 (:
-                successful login. The user has authenticated and is in the 'dba' group.
+                successful login. The user has authenticated and is in the 'dba' group. It's important however to keep
+                the cache-control set to 'cache="no"'. Otherwise re-authentication after a logout won't be forced. The
+                page will get served from cache and not hit the controller any more.
                 :)
                 <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                     <cache-control cache="no"/>
@@ -54,7 +66,7 @@ else if (ends-with($exist:path, "restricted.html")) then (
             else if(not(string($userParam) eq string($user))) then
                 (:
                 if a user was send as request param 'user'
-                AND it is NOT the same as the $user
+                AND it is NOT the same as $user
                 a former login attempt has failed.
 
                 Here a duplicate of the login.html is used. This is certainly not the most elegant solution. Just here
@@ -64,7 +76,8 @@ else if (ends-with($exist:path, "restricted.html")) then (
                     <forward url="fail.html"/>
                 </dispatch>
             else
+                (: if nothing of the above matched we got a login attempt. :)
                 <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                     <forward url="login.html"/>
                 </dispatch>
-    )else ()
+)else ()

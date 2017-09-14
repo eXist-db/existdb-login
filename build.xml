@@ -38,8 +38,9 @@
     <target name="polymer-build-production" depends="clean-polymer-build">
         <exec executable="polymer">
             <arg value="build"/>
-            <arg value="--shell"/>
-            <arg value="restricted.html"/>
+            <arg value="--bundle"/>
+            <arg value="--entrypoint"/>
+            <arg value="login.html"/>
         </exec>
     </target>
 
