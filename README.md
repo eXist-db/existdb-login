@@ -25,6 +25,14 @@ the unrestricted page.
 When you start a new app you can use the controller.xql as your base and add
 further rules as you need to.
 
+## 2 options for the login form
+
+Looking at the login.html you'll find 2 variants of a login form that are essentially the same. The first one is a Web Component
+and is described below. The second is a plain HTML form. If you're not intending to use Web Components the plain form is for you.
+
+The Web Component essentially wraps a form with some nicer Material Design components, some simple error messaging and auto-send when hitting enter on the
+form.
+
 ## existdb-login Web Component
 
 The existdb-login component encapsulates a form using Material Design styles and
