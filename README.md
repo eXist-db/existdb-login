@@ -16,7 +16,7 @@ should be. It requires some knowledge of how the controller.xql and the
 login.xql work.
 
 In this app a barebone controller is used that shows how to setup restricted pages.
-There's a public and a restricuted page. The public page (index.html) can be visited
+There's a public and a restricted page. The public page (index.html) can be visited
 by any person without logging into the database.
 
 The restricted page however requires that a user is in the 'dba' group. You can login by using a link on 
