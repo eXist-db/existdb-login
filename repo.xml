@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>existdb-login</description>
-    <author/>
+    <author>Joern Turner</author>
     <website/>
-    <status>alpha</status>
+    <status>stable</status>
     <license>GNU-LGPL</license>
-    <copyright>true</copyright>
     <type>application</type>
     <target>existdb-login</target>
     <prepare></prepare>
