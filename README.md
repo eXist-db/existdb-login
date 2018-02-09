@@ -42,7 +42,7 @@ When you use web components you can use pull this component into your project by
 bower like this:
 
 ```
-bower install --save http://gitlab.exist-db.org/eXistdbElements/existdb-login.git
+bower install --save https://github.com/eXist-db/existdb-login.git
 ```
 
 ## How to use
