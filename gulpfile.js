@@ -99,21 +99,21 @@ gulp.task('deploy:other', function () {
         .pipe(exClient.dest(targetConfiguration))
 })
 
-var bowerPath = [
+var components = [
     '*-*.html'
 ];
 
-gulp.task('deploy:comp', function () {
-    return gulp.src(bowerPath, {base: './'})
+gulp.task('deploy:moveToBowerDir', function () {
+    return gulp.src(components, {base: './'})
         .pipe(gulp.dest('bower_components/existdb-login'))
 })
 
-gulp.task('deploy', ['deploy:comp', 'deploy:other', 'deploy:components', 'deploy:styles'])
+gulp.task('deploy', ['deploy:moveToBowerDir', 'deploy:other', 'deploy:components', 'deploy:styles'])
 
 gulp.task('watch', function () {
     gulp.watch('resources/css/!*', ['deploy:styles'])
     gulp.watch(otherPaths, ['deploy:other'])
-    gulp.watch(bowerPath, ['deploy:comp'])
+    gulp.watch(components, ['deploy:moveToBowerDir'])
     gulp.watch('*.html', ['deploy:components'])
 })
 
