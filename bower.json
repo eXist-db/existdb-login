@@ -17,15 +17,24 @@
     "polymer": "^2.0.0"
   },
   "ignore": [
+    "demo/",
+    "modules/",
+    "resources",
     ".idea",
+    ".bower.json.ignores",
+    ".gitignore",
+    "404.html",
     "build",
     "bower_components",
     "node_modules",
     "test",
     "build.xml",
+    "controller.xql",
     "expath-pkg.xml",
     "repo.xml",
     "package.json",
+    "polymer.json",
+    "restricted.html",
     "gulpfile.js"
   ]
 }
