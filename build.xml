@@ -14,7 +14,7 @@
     </target>
 
 
-    <target name="xar" depends="prepare">
+    <target name="xar" depends="prepare" description="depends on 'prepare'; creates ${build.dir} zips contents of main directory excluding bower.json.ignores build.xml ${build.dir}/**, node_modules/**, doc/**, gulpfile.js, package.json">
         <mkdir dir="${build.dir}"/>
         <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="bower.json.ignores build.xml ${build.dir}/**, node_modules/**, doc/**, gulpfile.js, package.json"/>
     </target>
@@ -23,7 +23,7 @@
     <!--
     cleans a the Polymer build directories
     -->
-    <target name="clean-polymer-build">
+    <target name="clean-polymer-build" description="cleans the Polymer build directories ('unbundled' and 'bundled' in ${build.dir})">
         <delete dir="${build.dir}/unbundled"/>
         <delete dir="${build.dir}/bundled"/>
     </target>
@@ -35,7 +35,7 @@
     Note: in the context of a single component this target might be of minor importance but is put here for usage
      in your own projects.
     -->
-    <target name="polymer-build-production" depends="clean-polymer-build">
+    <target name="polymer-build-production" depends="clean-polymer-build" description="depends on 'clean-polymer-build'; produces a production version for Polymer apps">
         <exec executable="polymer">
             <arg value="build"/>
             <arg value="--bundle"/>
