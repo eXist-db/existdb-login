@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="xar" name="app-template">
+<project default="help" name="app-template">
     <xmlproperty file="expath-pkg.xml"/>
     <!--<property name="app.name" value=""/>-->
     <property name="project.version" value="${package(version)}"/>
     <property name="project.app" value="${package(abbrev)}"/>
     <property name="build.dir" value="build"/>
+    
+    <target name="help" description="display short hint to run 'ant -p'">
+        <echo>Welcome to thte existdb-login build script!</echo>
+        <echo></echo>
+        <echo>To learn more about the available build targets run 'ant -p'</echo>
+    </target>
 
     <target name="prepare" description="copy actual web components into bower_components dir to avoid path referencing problems.">
         <mkdir dir="${basedir}/bower_components/${package(abbrev)}"/>
