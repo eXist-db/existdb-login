@@ -34,14 +34,7 @@
         <delete dir="${build.dir}/bundled"/>
     </target>
 
-    <!--
-    produces a production version for Polymer apps. This will compress all imported web components into a single html.
-    This is highly advisable for final distributions as it boils down the package dramatically.
-
-    Note: in the context of a single component this target might be of minor importance but is put here for usage
-     in your own projects.
-    -->
-    <target name="polymer-build-production" depends="clean-polymer-build" description="depends on 'clean-polymer-build'; produces a production version for Polymer apps">
+    <target name="polymer-build-production" depends="clean-polymer-build" description="produces a production version for Polymer apps. This will compress all imported web components into a single html. This is highly advisable for final distributions as it boils down the package dramatically. Note: in the context of a single component this target might be of minor importance but is put here for usage in your own projects. depends on 'clean-polymer-build'.">
         <exec executable="polymer">
             <arg value="build"/>
             <arg value="--bundle"/>
@@ -50,11 +43,7 @@
         </exec>
     </target>
 
-
-    <!--
-    creates a xar file with optimized Polymer components
-    -->
-    <target name="production-xar" depends="polymer-build-production">
+    <target name="production-xar" depends="polymer-build-production" description="creates a xar file with optimized Polymer components">
         <mkdir dir="${build.dir}"/>
 
         <copy file="controller.xql" todir="${build.dir}/bundled"/>
@@ -68,10 +57,7 @@
         <zip basedir="${build.dir}/bundled" destfile="${build.dir}/${project.app}-${project.version}-prod.xar" excludes="demo"/>
     </target>
 
-    <!--
-    This should be called once you have unpacked the template app to start your own application.
-    -->
-    <target name="init">
+    <target name="init" description="This should be called once you have unpacked the template app to start your own application.">
         <input
                 message="Please enter new app name:"
                 addproperty="app.name"
