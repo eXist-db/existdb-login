@@ -26,9 +26,6 @@
     </target>
 
 
-    <!--
-    cleans a the Polymer build directories
-    -->
     <target name="clean-polymer-build" description="cleans the Polymer build directories ('unbundled' and 'bundled' in ${build.dir})">
         <delete dir="${build.dir}/unbundled"/>
         <delete dir="${build.dir}/bundled"/>
