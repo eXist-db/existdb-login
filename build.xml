@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="xar" name="app-template">
+<project default="help" name="app-template">
     <xmlproperty file="expath-pkg.xml"/>
     <!--<property name="app.name" value=""/>-->
     <property name="project.version" value="${package(version)}"/>
     <property name="project.app" value="${package(abbrev)}"/>
     <property name="build.dir" value="build"/>
+    
+    <target name="help" description="display short hint to run 'ant -p'">
+        <echo>Welcome to thte existdb-login build script!</echo>
+        <echo></echo>
+        <echo>To learn more about the available build targets run 'ant -p'</echo>
+    </target>
 
     <target name="prepare" description="copy actual web components into bower_components dir to avoid path referencing problems.">
         <mkdir dir="${basedir}/bower_components/${package(abbrev)}"/>
@@ -14,28 +20,18 @@
     </target>
 
 
-    <target name="xar" depends="prepare">
+    <target name="xar" depends="prepare" description="creates ${build.dir} zips contents of main directory excluding bower.json.ignores build.xml ${build.dir}/**, node_modules/**, doc/**, gulpfile.js, package.json; depends on 'prepare'">
         <mkdir dir="${build.dir}"/>
         <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="bower.json.ignores build.xml ${build.dir}/**, node_modules/**, doc/**, gulpfile.js, package.json"/>
     </target>
 
 
-    <!--
-    cleans a the Polymer build directories
-    -->
-    <target name="clean-polymer-build">
+    <target name="clean-polymer-build" description="cleans the Polymer build directories ('unbundled' and 'bundled' in ${build.dir})">
         <delete dir="${build.dir}/unbundled"/>
         <delete dir="${build.dir}/bundled"/>
     </target>
 
-    <!--
-    produces a production version for Polymer apps. This will compress all imported web components into a single html.
-    This is highly advisable for final distributions as it boils down the package dramatically.
-
-    Note: in the context of a single component this target might be of minor importance but is put here for usage
-     in your own projects.
-    -->
-    <target name="polymer-build-production" depends="clean-polymer-build">
+    <target name="polymer-build-production" depends="clean-polymer-build" description="produces a production version for Polymer apps. This will compress all imported web components into a single html. This is highly advisable for final distributions as it boils down the package dramatically. Note: in the context of a single component this target might be of minor importance but is put here for usage in your own projects. depends on 'clean-polymer-build'.">
         <exec executable="polymer">
             <arg value="build"/>
             <arg value="--bundle"/>
@@ -44,11 +40,7 @@
         </exec>
     </target>
 
-
-    <!--
-    creates a xar file with optimized Polymer components
-    -->
-    <target name="production-xar" depends="polymer-build-production">
+    <target name="production-xar" depends="polymer-build-production" description="creates a xar file with optimized Polymer components">
         <mkdir dir="${build.dir}"/>
 
         <copy file="controller.xql" todir="${build.dir}/bundled"/>
@@ -62,10 +54,7 @@
         <zip basedir="${build.dir}/bundled" destfile="${build.dir}/${project.app}-${project.version}-prod.xar" excludes="demo"/>
     </target>
 
-    <!--
-    This should be called once you have unpacked the template app to start your own application.
-    -->
-    <target name="init">
+    <target name="init" description="This should be called once you have unpacked the template app to start your own application.">
         <input
                 message="Please enter new app name:"
                 addproperty="app.name"
